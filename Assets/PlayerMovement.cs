@@ -1,45 +1,72 @@
+using System.Diagnostics;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
+[DebuggerDisplay("{" + nameof(GetDebuggerDisplay) + "(),nq}")]
 public class PlayerMovement : MonoBehaviour
 {
     [Header("Config")]
-    public float moveSpeed = 6f;     // horizontal speed
-    public float jumpForce = 12f;    // impulse applied upward
-    public Transform groundCheck;      // empty child at the player�s feet
-    public float groundRadius = 0.15f; // size of ground probe
-    public LayerMask groundLayer;      // layer(s) that count as ground
+    [SerializeField] float moveSpeed = 6f;
+    [SerializeField] float jumpForce = 12f;
+
+    [Header("Ground Check")]
+    [SerializeField] Transform groundCheck;
+    [SerializeField] float groundRadius = 0.2f;
+    [SerializeField] LayerMask groundLayer;
 
     Rigidbody2D rb;
-    bool isGrounded;
+    SpriteRenderer sr;
 
-    void Awake() => rb = GetComponent<Rigidbody2D>();
+    bool isGrounded, jumpQueued;
+    float horizInput;
 
+    void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        sr = GetComponent<SpriteRenderer>();          // grab the renderer
+    }
+
+    /* ---------- INPUT ---------- */
     void Update()
     {
-        /* --------- HORIZONTAL MOVE --------- */
-        float dir = 0f;                 // default: idle
-        if (Input.GetKey(KeyCode.A)) dir = -1f;
-        if (Input.GetKey(KeyCode.D)) dir = 1f;
-        rb.linearVelocity = new Vector2(dir * moveSpeed, rb.linearVelocity.y);
+        /* Horizontal input (+1 / 0 / –1) */
+        horizInput = Input.GetAxisRaw("Horizontal");
 
-        /* --------- GROUND CHECK ------------ */
+        /* Flip sprite to face direction */
+        if (horizInput != 0)
+            sr.flipX = horizInput < 0;
+
+        /* Jump input (queued for FixedUpdate) */
+        if ((Input.GetKeyDown(KeyCode.W) || Input.GetKeyDown(KeyCode.Space)) && isGrounded)
+            jumpQueued = true;
+    }
+
+    /* ---------- PHYSICS ---------- */
+    void FixedUpdate()
+    {
+        /* Ground probe */
         isGrounded = Physics2D.OverlapCircle(
             groundCheck.position, groundRadius, groundLayer);
 
-        /* --------- JUMP -------------------- */
-        if (Input.GetKeyDown(KeyCode.W) && isGrounded)
+        /* Horizontal motion */
+        rb.linearVelocity = new Vector2(horizInput * moveSpeed, rb.linearVelocity.y);
+
+        /* Jump */
+        if (jumpQueued)
         {
-            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);     // cancel down?speed
+            rb.linearVelocity = new Vector2(rb.linearVelocity.x, 0f);   // reset vertical speed
             rb.AddForce(Vector2.up * jumpForce, ForceMode2D.Impulse);
+            jumpQueued = false;
         }
     }
 
-    /* Draw probe in Scene view (optional) */
+    /* Optional gizmo */
     void OnDrawGizmosSelected()
     {
-        if (groundCheck == null) return;
+        if (!groundCheck) return;
         Gizmos.color = Color.yellow;
         Gizmos.DrawWireSphere(groundCheck.position, groundRadius);
     }
+
+    private string GetDebuggerDisplay() => ToString();
 }
