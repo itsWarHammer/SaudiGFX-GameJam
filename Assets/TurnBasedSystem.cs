@@ -5,6 +5,7 @@ using System.Collections;
 
 public class TurnBasedSystem : MonoBehaviour
 {
+    [SerializeField] bool startFight;
     [SerializeField] bool playerTurn;
     [SerializeField] bool canPress;
     [SerializeField] bool rightAbility;
@@ -32,6 +33,7 @@ public class TurnBasedSystem : MonoBehaviour
 
     private void Update()
     {
+        if (!startFight) return;
         if (!canPress) return;
 
         if (playerTurn)
@@ -70,6 +72,20 @@ public class TurnBasedSystem : MonoBehaviour
         {
             print("Gain Chill!");
             currentDialogueNumber++;
+            int randNumber = Random.Range(0, 3);
+
+            switch (randNumber)
+            {
+                case 0:
+                    enemyDialogue[enemyNumber].emotion = EnemyDialogue.Emotion.Angry;
+                    break;
+                case 1:
+                    enemyDialogue[enemyNumber].emotion = EnemyDialogue.Emotion.Sad;
+                    break;
+                case 2:
+                    enemyDialogue[enemyNumber].emotion = EnemyDialogue.Emotion.Happy;
+                    break;
+            }
         }
         else
         {
@@ -89,13 +105,21 @@ public class TurnBasedSystem : MonoBehaviour
             yield return new WaitForSeconds(textSpeed);
         }
 
-        yield return new WaitForSeconds(2);
+        yield return new WaitForSeconds(0.5f);
 
         if (playerTurn)
         {
-            playerTurn = false;
-            StartCoroutine(TypeWritterEffect(enemyDialogue[enemyNumber].dialogues[currentDialogueNumber]));
-            print("Enemy turn");
+            if (currentDialogueNumber >= enemyDialogue[enemyNumber].dialogues[currentDialogueNumber].Length - 1)
+            {
+                FightEnd();
+            }
+            else
+            {
+                playerTurn = false;
+                StartCoroutine(TypeWritterEffect(enemyDialogue[enemyNumber].dialogues[currentDialogueNumber]));
+                print("Enemy turn");
+            }
+            
         }
         else
         {
@@ -103,5 +127,10 @@ public class TurnBasedSystem : MonoBehaviour
             canPress = true;
             playerTurn = true;
         }
+    }
+
+    private void FightEnd()
+    {
+        print("Fight end");
     }
 }

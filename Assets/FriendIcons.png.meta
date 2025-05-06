@@ -1,10 +1,19 @@
 fileFormatVersion: 2
-guid: c82bf289b5354b945a8fcab230fdb6aa
+guid: 0cda157844c1bd84eacbc2fe71d9d114
 TextureImporter:
   internalIDToNameTable:
   - first:
-      213: -2913620191895753626
-    second: Single dot_0
+      213: 6821368397370974898
+    second: FriendIcons_0
+  - first:
+      213: -5611992443751748837
+    second: FriendIcons_1
+  - first:
+      213: -1468841242555233405
+    second: FriendIcons_2
+  - first:
+      213: 403703891435499302
+    second: FriendIcons_3
   externalObjects: {}
   serializedVersion: 13
   mipmaps:
@@ -37,7 +46,7 @@ TextureImporter:
   maxTextureSize: 2048
   textureSettings:
     serializedVersion: 2
-    filterMode: 1
+    filterMode: 0
     aniso: 1
     mipBias: 0
     wrapU: 1
@@ -51,7 +60,7 @@ TextureImporter:
   spriteMeshType: 1
   alignment: 0
   spritePivot: {x: 0.5, y: 0.5}
-  spritePixelsToUnits: 100
+  spritePixelsToUnits: 16
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
   spriteGenerateFallbackPhysicsShape: 1
   alphaUsage: 1
@@ -100,13 +109,13 @@ TextureImporter:
     serializedVersion: 2
     sprites:
     - serializedVersion: 2
-      name: Single dot_0
+      name: FriendIcons_0
       rect:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 1
-        height: 1
+        width: 15
+        height: 16
       alignment: 0
       pivot: {x: 0, y: 0}
       border: {x: 0, y: 0, z: 0, w: 0}
@@ -115,8 +124,74 @@ TextureImporter:
       physicsShape: []
       tessellationDetail: -1
       bones: []
-      spriteID: 66ce5ab5fddb097d0800000000000000
-      internalID: -2913620191895753626
+      spriteID: 2b26f5f8a6e5aae50800000000000000
+      internalID: 6821368397370974898
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendIcons_1
+      rect:
+        serializedVersion: 2
+        x: 17
+        y: 0
+        width: 15
+        height: 17
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: b1b20042b923e12b0800000000000000
+      internalID: -5611992443751748837
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendIcons_2
+      rect:
+        serializedVersion: 2
+        x: 32
+        y: 0
+        width: 15
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 38b4d021ca0ad9be0800000000000000
+      internalID: -1468841242555233405
+      vertices: []
+      indices: 
+      edges: []
+      weights: []
+    - serializedVersion: 2
+      name: FriendIcons_3
+      rect:
+        serializedVersion: 2
+        x: 47
+        y: 0
+        width: 17
+        height: 16
+      alignment: 0
+      pivot: {x: 0, y: 0}
+      border: {x: 0, y: 0, z: 0, w: 0}
+      customData: 
+      outline: []
+      physicsShape: []
+      tessellationDetail: -1
+      bones: []
+      spriteID: 62fa473ec8e3a9500800000000000000
+      internalID: 403703891435499302
       vertices: []
       indices: 
       edges: []
@@ -135,7 +210,10 @@ TextureImporter:
     spriteCustomMetadata:
       entries: []
     nameFileIdTable:
-      Single dot_0: -2913620191895753626
+      FriendIcons_0: 6821368397370974898
+      FriendIcons_1: -5611992443751748837
+      FriendIcons_2: -1468841242555233405
+      FriendIcons_3: 403703891435499302
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 
